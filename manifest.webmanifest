@@ -1,0 +1,37 @@
+{
+  "name": "Plasma XPL Intelligence — On-chain Dashboard",
+  "short_name": "Plasma XPL",
+  "description": "Independent on-chain research dashboard for Plasma/XPL and blockchain comparison.",
+  "id": "/",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#070d18",
+  "theme_color": "#0a1512",
+  "orientation": "any",
+  "lang": "vi",
+  "categories": [
+    "finance",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "/api/brand?asset=symbol&format=png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/api/brand?asset=symbol&format=png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/api/brand?asset=symbol&format=svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
