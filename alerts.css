@@ -1,0 +1,20 @@
+
+/* XPL Alert Center for desktop, iPhone & standalone PWA */
+.alert-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(300px,.85fr);gap:14px}
+.alert-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.alert-state{display:inline-flex;align-items:center;border:1px solid #345b64;border-radius:8px;padding:8px 10px;color:#d0e9e6;background:#102b34;font:11px 'DM Mono',monospace}
+.alert-state.good{border-color:#347d69;color:#53e3bd}.alert-state.bad{border-color:#71474d;color:#ffb4bb}
+.alert-config{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:17px 0}
+.alert-config label{display:grid;gap:7px;color:#9aaec1;font-size:11px}
+.alert-config input{width:100%;min-height:45px;border:1px solid #324758;border-radius:8px;background:#071b2b;color:#f1f6ff;padding:10px 12px;font:13px 'DM Mono',monospace}
+.alert-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.alert-actions .button{min-height:45px}
+.alert-event{padding:12px 0;border-bottom:1px solid #254053}
+.alert-event:last-child{border:0}.alert-event strong{display:block;font-size:12px;color:#e2f4f9}
+.alert-event p{margin:6px 0;color:#afc0cf;line-height:1.6;font-size:11px}
+.alert-event small{color:#7393a6;font:10px 'DM Mono'}
+.alert-monitor-data{margin-top:14px;display:grid;gap:9px}
+.alert-monitor-data .line{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid #23374a;padding-bottom:9px;font-size:11px}
+.alert-monitor-data .line span:first-child{color:#a4b5c6}
+@media(max-width:950px){.alert-grid{grid-template-columns:1fr}}
+@media(max-width:540px){.alert-config{grid-template-columns:1fr 1fr}.alert-actions .button{flex:1 1 38%;padding:10px 7px}.alert-state{font-size:10px}}
