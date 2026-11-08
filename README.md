@@ -62,3 +62,25 @@ The site is an installable **Progressive Web App (PWA)**: https://plasma-xpl-int
 
 The public site currently uses **direct Vercel deployment**. GitHub is source-of-truth storage; automatic GitHub-triggered deployment is **not yet connected** to the existing Vercel project.
 
+
+## XPL Alert Center (Web Push)
+
+The dashboard includes a push-alert center at **https://plasma-xpl-intelligence.vercel.app/#alerts**.
+
+- Install the PWA from Safari to the iPhone Home Screen (iOS 16.4+), open it from its icon, and tap **Bật thông báo**. macOS browsers supporting standard Push API can also subscribe.
+- Tap **Thử thông báo** to test the live Web Push subscription. Each device registers independently. Access to subscriptions is stored in a **private Vercel Blob store** and is never published to GitHub.
+- Configure thresholds for XPL percentage movement between consecutive checks, trailing 24h price movement, 24h TVL change, and native XPL balance changes in research-watchlist addresses. Defaults: 2.5%, 8%, 12%, 1,000,000 XPL.
+- **Crucial limitation:** wallet labels in this dashboard are unverified research candidates. Balance deltas are **not** evidence of CEX deposits or completed sales. No full-block chain-wide transfer indexer is connected.
+- A GitHub Actions workflow (`.github/workflows/plasma-alerts.yml`) is configured to attempt checks every ~5 minutes on best effort. GitHub may delay or drop scheduled runs, and automatically disables scheduled workflows after 60 days of inactivity on public repositories.
+- Vercel Hobby Cron runs one daily fallback at **00:00 UTC** (approximately 07:00 Vietnam time, without minute-level accuracy). Each run is authenticated; GitHub uses short-lived **OIDC** tokens, Vercel Cron uses `CRON_SECRET`. No secrets are stored in the GitHub repository.
+- The dashboard's **Monitoring health** card displays the timestamp of the last successful check. **No recent check means no verified active monitoring.**
+- Server environment keys: `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `CRON_SECRET`, plus the private Vercel Blob integration. Never commit credentials or raw device subscriptions.
+- Push delivery requires user permission and depends on Apple/browser push services; it is not guaranteed as an instantaneous or 24/7 notification service.
+
+### Endpoints
+
+- `GET /api/alerts-subscribe`: non-secret VAPID public key and service readiness.
+- `POST /api/alerts-subscribe`: device registration, preferences, revoke and one-minute-rate-limited push test, with same-origin checks.
+- `GET /api/alerts-check`: monitor health summary (no private subscriptions).
+- `POST /api/alerts-check`: protected monitor task; accepts only Vercel Cron secret or a verified GitHub OIDC workflow token.
+- `GET /api/alerts-cron`: Vercel daily fallback, protected via `CRON_SECRET`.
