@@ -1,1 +1,26 @@
-{"version":2,"framework":null,"functions":{"api/*.js":{"maxDuration":60}},"headers":[{"source":"/api/(.*)","headers":[{"key":"X-Content-Type-Options","value":"nosniff"}]}]}
+{
+  "version": 2,
+  "framework": null,
+  "functions": {
+    "api/*.js": {
+      "maxDuration": 60
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/alerts-cron",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}
