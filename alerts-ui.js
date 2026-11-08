@@ -54,8 +54,10 @@ function b64ToBytes(x){let t=atob(x.replace(/-/g,'+').replace(/_/g,'/')),a=new U
 $('alertEnable').addEventListener('click',async()=>{
  const btn=$('alertEnable');btn.disabled=true;
  try{
-  if(!(await device()))throw Error('Trên iPhone phải mở ứng dụng từ Màn hình chính (iOS 16.4+).');
+  if(!('serviceWorker'in navigator)||!('PushManager'in window)||!('Notification'in window))throw Error('iPhone: mở app từ Màn hình chính (iOS 16.4+).');
+  // Ask permission directly in the click handler to preserve iOS user activation.
   if((await Notification.requestPermission())!=='granted')throw Error('Thiết bị chưa cấp quyền thông báo.');
+  if(!(await device()))throw Error('Trình duyệt không hỗ trợ Web Push.');
   const info=await (await fetch(endpoint,{cache:'no-store'})).json();
   if(!info.publicKey||!info.ready)throw Error('Máy chủ Push chưa sẵn sàng');
   const reg=await navigator.serviceWorker.ready;
