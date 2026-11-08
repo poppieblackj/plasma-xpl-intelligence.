@@ -1,6 +1,10 @@
 name: Plasma XPL Alert Monitor
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/plasma-alerts.yml'
   schedule:
     # GitHub schedules are best-effort; actual dispatch may be delayed.
     - cron: '*/5 * * * *'
