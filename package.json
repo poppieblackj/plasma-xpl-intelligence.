@@ -1,0 +1,13 @@
+{
+  "name": "plasma-xpl-intelligence",
+  "version": "1.2.0",
+  "private": true,
+  "description": "Independent Plasma on-chain intelligence PWA with private push alerts",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@vercel/blob": "^2.0.0",
+    "web-push": "^3.6.7"
+  }
+}
