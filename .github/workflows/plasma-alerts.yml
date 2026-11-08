@@ -1,0 +1,32 @@
+name: Plasma XPL Alert Monitor
+
+on:
+  schedule:
+    # GitHub schedules are best-effort; actual dispatch may be delayed.
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: plasma-xpl-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Authenticate with short-lived GitHub OIDC token
+        shell: bash
+        env:
+          CHECK_URL: https://plasma-xpl-intelligence.vercel.app/api/alerts-check
+        run: |
+          set -euo pipefail
+          response="$(curl --fail --silent --show-error --max-time 20             -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN"             "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=plasma-xpl-alert-monitor")"
+          token="$(printf '%s' "$response" | jq -r '.value // empty')"
+          test -n "$token"
+          echo "Authenticated scheduled monitoring request"
+          curl --fail --silent --show-error --max-time 55 --retry 2             -X POST -H "Authorization: Bearer $token"             -H "Content-Type: application/json"             "$CHECK_URL"
