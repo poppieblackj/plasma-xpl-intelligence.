@@ -139,7 +139,7 @@ $('installHelp').addEventListener('click',e=>{if(e.target===$('installHelp'))hid
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('installHelp').classList.contains('open'))hideInstallHelp()});
 // Visible offline indicator, no simulated / stale on-chain values.
 function syncOnlineStatus(){if(!navigator.onLine){$('liveBadge').textContent='● OFFLINE — DATA NOT UPDATING';$('liveBadge').classList.add('status-offline')}else{$('liveBadge').classList.remove('status-offline');if(state){$('liveBadge').textContent='● CHECKING LIVE FEEDS';reload()}}}
-window.addEventListener('online',syncOnlineStatus);window.addEventListener('offline',syncOnlineStatus);
+window.addEventListener('online',syncOnlineStatus);window.addEventListener('offline',syncOnlineStatus);if(!navigator.onLine)syncOnlineStatus();
 // Highlight active mobile navigation during browsing.
 const navLinks=[...document.querySelectorAll('.mobile-nav a')];
 navLinks.forEach(a=>a.addEventListener('click',()=>{navLinks.forEach(x=>x.classList.toggle('active',x===a))}));
