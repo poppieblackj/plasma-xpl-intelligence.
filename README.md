@@ -45,3 +45,20 @@ Requires Node.js 22+ for the `fetch` API. For local Vercel functions use the Ver
 - OP Mainnet refers to the single chain, not the entire OP Superchain.
 
 *Last synchronized from the working Vercel dashboard: 2026-11-08.*
+
+## Use as an app on iPhone and MacBook
+
+The site is an installable **Progressive Web App (PWA)**: https://plasma-xpl-intelligence.vercel.app/
+
+- **iPhone:** Open the website in **Safari** → **Share** → **Add to Home Screen** → **Add**. A Plasma icon appears on the iPhone Home Screen. The app launches in a standalone view.
+- **MacBook (macOS Sonoma 14+):** Open in **Safari** → **File** → **Add to Dock**.
+- **MacBook (Chrome/Edge):** Use the browser's **Install app** command if offered; otherwise use the website in a normal browser tab.
+- **Mobile layout:** 5-item bottom navigation, touch-friendly controls, responsive cards, safe-area padding.
+- **Refresh:** Market and on-chain feeds refresh while the app is open (1/5/15-minute selector). Not continuous background monitoring.
+- **Offline behavior:** The app shell may remain accessible, but live market data does not refresh without an internet connection. The service worker deliberately does *not* cache on-chain API responses.
+- **Brand:** Official Plasma assets proxied from https://www.plasma.org/brand via `/api/brand`; the app is an independent research project, not affiliated with Plasma.
+
+## Deployment notes
+
+The public site currently uses **direct Vercel deployment**. GitHub is source-of-truth storage; automatic GitHub-triggered deployment is **not yet connected** to the existing Vercel project.
+
